@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import faker from 'faker';
 
+import SearchBar from './components/SearchBar';
+import FlagCard from './components/FlagCard';
+
 const App = () => {
   const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
 
   useEffect(() => {
     const newUsers = [];
@@ -18,11 +22,25 @@ const App = () => {
     }
 
     setUsers(newUsers);
+    setFilteredUsers([newUsers[0]]);
   }, []);
 
   console.log(users, 'users');
 
-  return <div>Arjan Pogi</div>
+  return <div className="ui container" style={{ paddingTop: '20px' }}>
+    <SearchBar style={{ marginBottom: '20px' }} />
+
+    {
+      !filteredUsers || !filteredUsers.length ?
+      <b>No Results</b> :
+      <div className="ui cards">
+        <FlagCard />
+        <FlagCard />
+        <FlagCard />
+      </div>
+    }
+
+  </div>
 };
 
 export default App;
