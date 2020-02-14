@@ -2,4 +2,4 @@
 
 This is my first LM React Practical exam.
 
-:pray::skin-tone-6: :pray::skin-tone-6: :pray::skin-tone-6:
+![Praying](https://media.giphy.com/media/3oz8xALrfMNLmcNrVe/giphy.gif)
