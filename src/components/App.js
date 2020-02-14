@@ -1,9 +1,9 @@
 import React, { Fragment, useState, useEffect, useRef } from 'react';
 import faker from 'faker';
 
-import Spinner from './components/Spinner';
-import SearchBar from './components/SearchBar';
-import FlagCard from './components/FlagCard';
+import Spinner from './Spinner';
+import SearchBar from './SearchBar';
+import FlagCard from './FlagCard';
 
 const App = () => {
   const [users, setUsers] = useState([]);
