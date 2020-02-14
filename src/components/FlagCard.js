@@ -2,14 +2,18 @@ import React from 'react';
 
 import UserDetail from './UserDetail';
 
-const FlagCard = () => {
+const FlagCard = ({ email, jobTitle, avatar, content, countryCode }) => {
+  const flagUrl = `https://www.countryflags.io/${countryCode}/flat/64.png`;
+
   return <div className="ui card">
     <div className="content">
-      <UserDetail />
+      <UserDetail email={email} jobTitle={jobTitle} avatar={avatar}/>
     </div>
-    <div className="content">
-      <img src="https://www.countryflags.io/AE/flat/64.png" />
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eligendi ipsa expedita, necessitatibus voluptas, ad repudiandae quibusdam laboriosam rerum fugiat laborum ut, quaerat nihil. Possimus vero dolore nobis, qui perspiciatis veritatis.
+    <div className="content" style={{ display: 'inline-flex' }}>
+      <div style={{ marginRight: '10px' }}>
+        <img alt={countryCode} src={flagUrl} />
+      </div>
+      <div>{content}</div>
     </div>
   </div>;
 }

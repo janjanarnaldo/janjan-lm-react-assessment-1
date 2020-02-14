@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect, useRef } from 'react';
 import faker from 'faker';
 
+import Spinner from './components/Spinner';
 import SearchBar from './components/SearchBar';
 import FlagCard from './components/FlagCard';
 
 const App = () => {
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const refSearchInput = useRef(null);
 
   useEffect(() => {
     const newUsers = [];
@@ -22,25 +26,37 @@ const App = () => {
     }
 
     setUsers(newUsers);
-    setFilteredUsers([newUsers[0]]);
   }, []);
 
-  console.log(users, 'users');
+  // Just to display the users for 1 time only
+  useEffect(() => {
+    console.log(users, 'users');
+  }, [users]);
 
-  return <div className="ui container" style={{ paddingTop: '20px' }}>
-    <SearchBar style={{ marginBottom: '20px' }} />
+  const renderFlagCard = user => <FlagCard key={user.email} {...user} />
 
-    {
-      !filteredUsers || !filteredUsers.length ?
-      <b>No Results</b> :
-      <div className="ui cards">
-        <FlagCard />
-        <FlagCard />
-        <FlagCard />
-      </div>
-    }
+  const onSearchUsers = () => {
+    const { current: { value: search } } = refSearchInput;
 
-  </div>
+    setIsLoading(true);
+    setTimeout(() => {
+      setFilteredUsers(users.filter(user => user.email.toLowerCase().includes(search.toLowerCase())));
+      setIsLoading(false);
+    }, 1000);
+  }
+
+  return <Fragment>
+    <Spinner isLoading={isLoading} />
+
+    <div className="ui container" style={{ paddingTop: '20px' }}>
+      <SearchBar style={{ marginBottom: '20px' }} _ref={refSearchInput} action={onSearchUsers} />
+      {
+        !filteredUsers || !filteredUsers.length ?
+        <b>No Results</b> :
+        <div className="ui cards">{filteredUsers.map(renderFlagCard)}</div>
+      }
+    </div>
+  </Fragment>
 };
 
 export default App;
